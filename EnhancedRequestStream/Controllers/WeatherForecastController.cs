@@ -48,6 +48,7 @@ namespace EnhancedRequestStream.Controllers
 			var httpClient = new HttpClient();
 			var client= new Client("localhost:5101", httpClient);
 
+			// todo ms fix gitigonre
 			// todo ms - utworzyć nowego klienta
 			// ogarnąć co potrzeba, żeby zbudować poprawny request
 			// sprawdzić, czy swagger się do czegoś przyda
