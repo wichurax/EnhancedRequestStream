@@ -27,3 +27,4 @@ C:\dev\enhancedRequestStream\EnhancedRequestStream\obj\Debug\net5.0\EnhancedRequ
 C:\dev\enhancedRequestStream\EnhancedRequestStream\obj\Debug\net5.0\ref\EnhancedRequestStream.dll
 C:\dev\enhancedRequestStream\EnhancedRequestStream\obj\Debug\net5.0\EnhancedRequestStream.pdb
 C:\dev\enhancedRequestStream\EnhancedRequestStream\obj\Debug\net5.0\EnhancedRequestStream.genruntimeconfig.cache
+C:\dev\enhancedRequestStream\EnhancedRequestStream\bin\Debug\net5.0\Newtonsoft.Json.dll

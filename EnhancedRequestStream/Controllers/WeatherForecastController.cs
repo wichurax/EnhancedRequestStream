@@ -3,7 +3,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Swagger.Generated.WebServerClient;
 
 namespace EnhancedRequestStream.Controllers
 {
@@ -34,6 +37,22 @@ namespace EnhancedRequestStream.Controllers
 				Summary = Summaries[rng.Next(Summaries.Length)]
 			})
 			.ToArray();
+		}
+
+		[HttpPost]
+		public async Task<ActionResult> SentMultipartData(string temp)
+		{
+			var json = JsonSerializer.Serialize("{\"test\": \"xD\"}");
+			var file = await System.IO.File.ReadAllBytesAsync("examplePath");
+
+			var httpClient = new HttpClient();
+			var client= new Client("localhost:5101", httpClient);
+
+			// todo ms - utworzyć nowego klienta
+			// ogarnąć co potrzeba, żeby zbudować poprawny request
+			// sprawdzić, czy swagger się do czegoś przyda
+
+			return Ok();
 		}
 	}
 }
