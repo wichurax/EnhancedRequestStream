@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Swagger.Generated.WebServerClient;
 
 namespace EnhancedRequestStream.Controllers
 {
@@ -39,14 +38,15 @@ namespace EnhancedRequestStream.Controllers
 			.ToArray();
 		}
 
-		[HttpPost]
+		[HttpPost("/sent-multipart-data")]
 		public async Task<ActionResult> SentMultipartData(string temp)
 		{
 			var json = JsonSerializer.Serialize("{\"test\": \"xD\"}");
 			var file = await System.IO.File.ReadAllBytesAsync("examplePath");
 
 			var httpClient = new HttpClient();
-			var client= new Client("localhost:5101", httpClient);
+			//var client = new Client("localhost:5101", httpClient);
+			
 
 			// todo ms fix gitigonre
 			// todo ms - utworzyć nowego klienta

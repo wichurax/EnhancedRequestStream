@@ -1,6 +1,6 @@
 using System;
 
-namespace EnhancedRequestStream
+namespace Server1
 {
 	public class WeatherForecast
 	{
