@@ -1,23 +1,46 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Serilog;
+using Serilog.Events;
 
 namespace Server1
 {
 	public class Program
 	{
-		public static void Main(string[] args)
+		public static int Main(string[] args)
 		{
-			CreateHostBuilder(args).Build().Run();
+			Log.Logger = new LoggerConfiguration()
+				.WriteTo.Console()
+				.WriteTo.Debug()
+				.CreateBootstrapLogger();
+
+			Log.Information("Starting up sever1...");
+
+			try
+			{
+				CreateHostBuilder(args).Build().Run();
+
+				Log.Information("Server1 stopped cleanly");
+				return 0;
+			}
+			catch (Exception e)
+			{
+				Log.Fatal(e, "Host terminated unexpectedly");
+				return 1;
+			}
+			finally
+			{
+				Log.CloseAndFlush();
+			}
 		}
 
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
+				.UseSerilog((context, services, configuration) => configuration
+					.ReadFrom.Configuration(context.Configuration)
+					.ReadFrom.Services(services)
+					.Enrich.FromLogContext())
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
 					webBuilder.UseStartup<Startup>();
