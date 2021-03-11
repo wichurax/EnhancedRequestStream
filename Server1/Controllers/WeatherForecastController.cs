@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Serialization.Formatters;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
 namespace Server1.Controllers
@@ -39,21 +43,26 @@ namespace Server1.Controllers
 		}
 
 		[HttpPost("/sent-multipart-data")]
-		public async Task<ActionResult> SentMultipartData(string temp)
+		public async Task<IActionResult> SentFileWithConfiguration([FromForm] FileWithConfigurationForm form)
 		{
-			var json = JsonSerializer.Serialize("{\"test\": \"xD\"}");
-			//var file = await System.IO.File.ReadAllBytesAsync("examplePath");
-
-			var httpClient = new HttpClient();
-			//var client = new Client("localhost:5101", httpClient);
+			// todo ms
+			// var file = await System.IO.File.ReadAllBytesAsync("C:/EnhancedRequestStream/EnhancedRequestStreamFile.txt");
 			
-
-			// todo ms fix gitigonre
-			// todo ms - utworzyć nowego klienta
-			// ogarnąć co potrzeba, żeby zbudować poprawny request
-			// sprawdzić, czy swagger się do czegoś przyda
+			if (!Request.ContentType.Contains("multipart/mixed"))
+			{
+				return new UnsupportedMediaTypeResult();
+			}
 
 			return Ok();
 		}
+	}
+
+	public class FileWithConfigurationForm
+	{
+		[FromForm(Name = "file")]
+		public IFormFile File { get; set; }
+
+		[FromForm(Name = "configuration")]
+		public string Configuration { get; set; }
 	}
 }
