@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Win32.SafeHandles;
 
 namespace Server2.Controllers
 {
@@ -25,12 +26,11 @@ namespace Server2.Controllers
 			_logger.LogInformation($"Download of FileWithConfigurationForm in server2 started at: {DateTimeOffset.Now:o}");
 			_logger.LogInformation($"Download of file '{form.File.Name}' in server2 started at: {DateTimeOffset.Now:o}");
 
-			using (StreamReader sr = new StreamReader(form.File.OpenReadStream()))
+			using (FileStream ms = new FileStream("C:/EnhancedRequestStream/file.bin", FileMode.Create))
 			{
-				var streamValue = await sr.ReadToEndAsync();
-				_logger.LogInformation($"Download of file '{form.File.Name}' in server2 finished at: {DateTimeOffset.Now:o}");
-				//_logger.LogInformation($"Stream value: {streamValue}");
+				await form.File.CopyToAsync(ms);
 			}
+			_logger.LogInformation($"Download of file '{form.File.Name}' in server2 finished at: {DateTimeOffset.Now:o}");
 
 			_logger.LogInformation($"Download of FileWithConfigurationForm in server2 finished at: {DateTimeOffset.Now:o}");
 
