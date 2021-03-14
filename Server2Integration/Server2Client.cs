@@ -11,18 +11,18 @@
 #pragma warning disable 1591 // Disable "CS1591 Missing XML comment for publicly visible type or member ..."
 #pragma warning disable 8073 // Disable "CS8073 The result of the expression is always 'false' since a value of type 'T' is never equal to 'null' of type 'T?'"
 
-namespace Server1ApiClient
+namespace Server2ApiClient
 {
     using System = global::System;
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.10.8.0 (NJsonSchema v10.3.11.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class Server1Client 
+    public partial class Server2Client 
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
-        public Server1Client(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public Server2Client(string baseUrl, System.Net.Http.HttpClient httpClient)
         {
             BaseUrl = baseUrl;
             _httpClient = httpClient;
@@ -52,18 +52,18 @@ namespace Server1ApiClient
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task SentMultipartDataAsync(FileParameter file)
+        public System.Threading.Tasks.Task Server2Async(FileParameter file, string configuration)
         {
-            return SentMultipartDataAsync(file, System.Threading.CancellationToken.None);
+            return Server2Async(file, configuration, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task SentMultipartDataAsync(FileParameter file, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task Server2Async(FileParameter file, string configuration, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sent-multipart-data");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Server2");
     
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -83,6 +83,12 @@ namespace Server1ApiClient
                         if (!string.IsNullOrEmpty(file.ContentType))
                             content_file_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(file.ContentType);
                         content_.Add(content_file_, "file", file.FileName ?? "file");
+                    }
+                    if (configuration == null)
+                        throw new System.ArgumentNullException("configuration");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(configuration, System.Globalization.CultureInfo.InvariantCulture)), "configuration");
                     }
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");

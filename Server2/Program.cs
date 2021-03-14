@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Serilog;
 
-namespace Server1
+namespace Server2
 {
 	public class Program
 	{
@@ -14,7 +14,7 @@ namespace Server1
 				.WriteTo.Debug()
 				.CreateBootstrapLogger();
 
-			Log.Information("Starting up sever1");
+			Log.Information("Starting up sever2");
 
 			try
 			{

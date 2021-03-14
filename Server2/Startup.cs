@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
-namespace Server1
+namespace Server2
 {
 	public class Startup
 	{
@@ -29,7 +29,7 @@ namespace Server1
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server1", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server2", Version = "v1" });
 			});
 		}
 
@@ -40,7 +40,7 @@ namespace Server1
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Server1 v1"));
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Server2 v1"));
 			}
 
 			app.UseSerilogRequestLogging();
